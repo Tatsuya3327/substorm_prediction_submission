@@ -14,7 +14,7 @@ Our team’s goal was to develop a model to predict the onset of auroral substor
 In order to capture these brief moments when the substorm occurs, we wish to develop a system that is capable of predicting the onset of substorms ahead of time, similarly to that of a weather forecasting system, but for substorms of auroras. By analyzing historical data of magnetometer readings collected by satellites from NASA’s THESIS mission as well as aurora images taken by ground stations of the NASA THEMIS project near the Earth’s pole, our team aimed to studying patterns in the fluctuation of the Earth’s magnetic field and movements of the auroral arcs preceding the onset of substorms, to train a machine learning model to predict future onsets based.
 
 ## Data
-We combined time series magnetometer readings and features extracted from time series auroral images.
+We combined time series magnetometer readings and features extracted from time series auroral images. We don't include CDF files due to their large sizes, but they are available at THEMIS project website of Space Science Laboratory at UC Berkeley[^2].
 
 ### Magnetometer data
 Readings of H, D, Z components of the magnetic field. We choose readings starting from t = 0, 15, 30, 45 mins etc. for 30 min intervals (3 second intervals).
@@ -33,7 +33,7 @@ We first needed to distill our collected data into image classifications before 
 
 Once we have classified the set of images, we combined the classification data with the magnetometer data and total brightness of the image to create our dataset for our predictive model. This model used LSTM (Long short-term memory) modules as a base for the machine learning model, as this specific model is good for analyzing time series data. LSTM modules have feedback connections between each module (hence the name), allowing subsequent data points that are temporally adjacent to each other have a more meaningful effect on how the model detects overall change between regular activity and a possible substorm onset.
 
-During our research on types of models to use, we came across a ResNet model[^2] which could classify time series magnetometer data as a possible substorm onset within a 1 hour prediction period (taking in a 2 hour input period). A ResNet model is a special type of Convolutional Neural Net that adds skip connections within the net to reduce problems with vanishing or exploding gradients that could damage the test accuracy of the model when deeper layers are added to the model. Although this model had similar goals as our project, we decided to use an LSTM-based approach because our model incorporates multiple sources of input data to get a more holistic view of the environment when making predictions. We also found that the ResNet model took in only 1-dimensional time series data to process, while our project wanted to also incorporate 2-dimensional image time series data to improve model robustness.
+During our research on types of models to use, we came across a ResNet model[^3] which could classify time series magnetometer data as a possible substorm onset within a 1 hour prediction period (taking in a 2 hour input period). A ResNet model is a special type of Convolutional Neural Net that adds skip connections within the net to reduce problems with vanishing or exploding gradients that could damage the test accuracy of the model when deeper layers are added to the model. Although this model had similar goals as our project, we decided to use an LSTM-based approach because our model incorporates multiple sources of input data to get a more holistic view of the environment when making predictions. We also found that the ResNet model took in only 1-dimensional time series data to process, while our project wanted to also incorporate 2-dimensional image time series data to improve model robustness.
 
 ## Result and Next Steps
 Our model achieved around 70 % accuracy on the validation data (history of losses and accuracies available in `result`). 
@@ -46,5 +46,6 @@ Due to the lack of labelled data, our model is experiencing overfitting (our mod
 
 ## Reference
 [^1]: https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2021JA029683
-[^2]: https://par.nsf.gov/servlets/purl/10189693
+[^2]: http://themis.ssl.berkeley.edu/index.shtml
+[^3]: https://par.nsf.gov/servlets/purl/10189693
 
